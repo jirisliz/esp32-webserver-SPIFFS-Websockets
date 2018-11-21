@@ -10,7 +10,6 @@ class HeartBeat {
 
   public:
     HeartBeat(int pin);
-    void setup();
     void run();
 };
 

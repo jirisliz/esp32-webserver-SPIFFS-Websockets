@@ -3,10 +3,6 @@
 HeartBeat::HeartBeat(int pin)
 {
     heartBeatPin = pin;
-}
-
-void HeartBeat::setup()
-{
     pinMode(heartBeatPin, OUTPUT);
     digitalWrite(heartBeatPin, true);
 }
