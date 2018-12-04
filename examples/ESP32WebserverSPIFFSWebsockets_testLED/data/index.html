@@ -1,0 +1,38 @@
+<html>
+
+<head>
+  <title>ESP32 Web Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+    <script>
+        var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
+        connection.onopen = function() {
+            connection.send('Connect ' + new Date());
+        };
+        connection.onerror = function(error) {
+            console.log('WebSocket Error ', error);
+        };
+        connection.onmessage = function(e) {
+            console.log('Server: ', e.data);
+        };
+
+        function sendLEDVal() {
+            var led = parseInt(document.getElementById('r').value).toString(10);
+            led = '#' + led;
+            console.log('LED val: ' + led);
+            connection.send(led);
+        }
+    </script>
+</head>
+
+<body>LED Control:
+    <br/>
+    <br/>LED val:
+    <div class="slidecontainer">
+        <input id="r" type="range" min="0" max="255" step="1" oninput="sendLEDVal();" class="slider"/>
+    </div>
+</body>
+
+</html>
